@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Chennai Super Kings",
+    "Owner": "Chennai Super Kings Cricket Ltd.",
+    "Coach": "Stephen Fleming",
+    "Venue": "M. A. Chidambaram Stadium",
+    "Captain": "Ruturaj Gaikwad"
+  },
+  {
+    "name": "Delhi Capitals",
+    "Owner": "GMR Sports Pvt. Ltd & JSW Sports Pvt Ltd",
+    "Coach": "Ricky Ponting",
+    "Venue": "Arun Jaitley Stadium",
+    "Captain": "Rishabh Pant"
+  },
+  {
+    "name": "Gujarat Titans",
+    "Owner": "CVC Capital Partners",
+    "Coach": "Ashish Nehra",
+    "Venue": "Narendra Modi Stadium",
+    "Captain": "Shubman Gill"
+  },
+  {
+    "name": "Kolkata Knight Riders",
+    "Owner": "Knight Riders Sports Private Ltd",
+    "Coach": "Chandrakant Pandit",
+    "Venue": "Eden Gardens",
+    "Captain": "Shreyas Iyer"
+  },
+  {
+    "name": "Lucknow Super Giants",
+    "Owner": "RPSG Group",
+    "Coach": "Justin Langer",
+    "Venue": "BRSABV Ekana Cricket Stadium",
+    "Captain": "KL Rahul"
+  },
+  {
+    "name": "Mumbai Indians",
+    "Owner": "Indiawin Sports Pvt. Ltd",
+    "Coach": "Mark Boucher",
+    "Venue": "Wankhede Stadium",
+    "Captain": "Hardik Pandya"
+  },
+  {
+    "name": "Punjab Kings",
+    "Owner": "KPH Dream Cricket Private Limited",
+    "Coach": "Trevor Bayliss",
+    "Venue": "PCA New Stadium, Mullanpur",
+    "Captain": "Shikhar Dhawan"
+  },
+  {
+    "name": "Rajasthan Royals",
+    "Owner": "The Royals Sports Group",
+    "Coach": "Kumar Sangakkara",
+    "Director of Cricket": "Kumar Sangakkara",
+    "Venue": "Sawai Mansingh Stadium",
+    "Captain": "Sanju Samson"
+  },
+  {
+    "name": "Royal Challengers Bengaluru",
+    "Owner": "United Spirits Limited (USL)",
+    "Coach": "Andy Flower",
+    "Venue": "M. Chinnaswamy Stadium",
+    "Captain": "Faf du Plessis"
+  },
+  {
+    "name": "Sunrisers Hyderabad",
+    "Owner": "SUN TV Network",
+    "Coach": "Daniel Vettori",
+    "Venue": "Rajiv Gandhi Intl. Cricket Stadium",
+    "Captain": "Pat Cummins"
+  }
+]

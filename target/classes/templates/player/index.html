@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th=”http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>User - Index</title>
+</head>
+<body>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="player : ${players}">
+                <td th:text="${player.playerName}"></td>
+                <td th:text="${player.playerTeam}"></td>
+                <td th:text="${player.getPlayerTypes()}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
