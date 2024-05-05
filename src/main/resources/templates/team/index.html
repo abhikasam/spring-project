@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th=”http://www.thymeleaf.org”>
+<head>
+  <meta charset="UTF-8">
+  <title>User - Index</title>
+</head>
+<body>
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Coach</th>
+    <th>Venue</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="team : ${teams}">
+    <td>
+      <a th:text="${team.teamName}" th:href="@{/player/index(teamName=${team.teamName})}"></a>
+    </td>
+    <td th:text="${team.owner}"></td>
+    <td th:text="${team.coach}"></td>
+    <td th:text="${team.venue}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

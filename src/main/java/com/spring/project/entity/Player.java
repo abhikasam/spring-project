@@ -1,19 +1,20 @@
 package com.spring.project.entity;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Data;
 
 import java.io.Serializable;
-
+@Data
 public class Player implements Serializable {
-    public int playerId;
+    private int playerId;
     @SerializedName("name")
-    public String playerName;
+    private String playerName;
     @SerializedName("team")
-    public String playerTeam;
+    private String playerTeam;
     @SerializedName("indian")
-    public boolean isIndian;
+    private boolean isIndian;
     @SerializedName("type")
-    public String[] playerType;
+    private String[] playerType;
     public String getPlayerTypes(){
         return String.join(", ",playerType);
     }
