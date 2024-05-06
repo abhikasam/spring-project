@@ -9,6 +9,7 @@ import com.spring.project.entity.Team;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,8 +23,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/team")
 public class TeamController {
-    @RequestMapping(value={"","/","/index"})
-    public String index(Model model){
+    private List<Team> teams;
+    private List<Player> players;
+    private void setTeams(){
         ClassLoader classLoader= ProjectApplication.class.getClassLoader();
         try{
             String filePath=classLoader.getResource("data/teams.json").getPath().substring(1);
@@ -33,12 +35,44 @@ public class TeamController {
             JsonReader jsonReader=new JsonReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             jsonReader.setLenient(true);
             Type type= new TypeToken<ArrayList<Team>>(){}.getType();
-            List<Team> teams=gson.fromJson(jsonReader, type);
-            model.addAttribute("teams",teams);
+            this.teams=gson.fromJson(jsonReader, type);
         }
         catch (Exception ex){
             System.out.println(ex.toString());
         }
+    }
+    @RequestMapping(value={"","/","/index"})
+    public String index(Model model){
+        setTeams();
+        model.addAttribute("teams",teams);
         return "team/index.html";
+    }
+
+    private void setPlayers(){
+        ClassLoader classLoader=ProjectApplication.class.getClassLoader();
+        try{
+            String filePath=classLoader.getResource("data/players.json").getPath().substring(1);
+            File file=new File(filePath);
+            InputStream inputStream=new FileInputStream(file);
+            Gson gson=new Gson();
+            JsonReader jsonReader=new JsonReader(new InputStreamReader(inputStream,StandardCharsets.UTF_8));
+            jsonReader.setLenient(true);
+            Type type= new TypeToken<ArrayList<Player>>(){}.getType();
+            this.players=gson.fromJson(jsonReader, type);
+        }
+        catch (Exception ex){
+            System.out.println(ex.toString());
+        }
+
+    }
+
+    @RequestMapping("/players")
+    public String getPlayers(Model model, @RequestParam String teamName){
+        setPlayers();
+        if(teamName!=null){
+            players=players.stream().filter(i->teamName.equals(i.getPlayerTeam())).toList();
+        }
+        model.addAttribute("players",players);
+        return "team/players.html";
     }
 }
