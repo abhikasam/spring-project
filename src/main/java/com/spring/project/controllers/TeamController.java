@@ -70,7 +70,7 @@ public class TeamController {
     public String getPlayers(Model model, @RequestParam String teamName){
         setPlayers();
         if(teamName!=null){
-            players=players.stream().filter(i->teamName.equals(i.getPlayerTeam())).toList();
+            players=players.stream().filter(i->teamName.equals(i.getTeamName())).toList();
         }
         model.addAttribute("players",players);
         return "team/players.html";

@@ -8,7 +8,9 @@ import com.spring.project.entity.Player;
 import com.spring.project.entity.Team;
 import com.spring.project.filters.PlayerFilter;
 import com.spring.project.shared.SelectListItem;
+import jakarta.persistence.Tuple;
 import jakarta.validation.Valid;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,9 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 //https://www.iplt20.com/teams/sunrisers-hyderabad/results
 @Controller
@@ -31,8 +31,8 @@ public class PlayerController {
     private List<SelectListItem> teamSelectListItem;
     private PlayerFilter playerFilter=new PlayerFilter();
     @ModelAttribute("playFilter")
-    public void setPlayerFilter(PlayerFilter playerFilter){
-        this.playerFilter=playerFilter;
+    public void setPlayerFilter(PlayerFilter playerFilter) {
+        this.playerFilter = playerFilter;
     }
 
     private void setPlayers(){
@@ -77,8 +77,20 @@ public class PlayerController {
         setPlayers();
         setTeams();
         if(playerFilter.getTeamName()!=null && playerFilter.getTeamName().length()!=0){
-            players=players.stream().filter(i->playerFilter.getTeamName().equals(i.getPlayerTeam())).toList();
+            players=players.stream().filter(i->playerFilter.getTeamName().equals(i.getTeamName())).toList();
         }
+        if(playerFilter.getType()!=null && playerFilter.getType().length()!=0){
+            players=players.stream().filter(i-> Arrays.stream(i.getPlayerType()).anyMatch(k-> k.equals(playerFilter.getType()) )).toList();
+        }
+        if(playerFilter.getIndian()!=0){
+            if(playerFilter.getIndian()==1){
+                players=players.stream().filter(i-> i.isIndian()).toList();
+            }
+            else{
+                players=players.stream().filter(i-> !i.isIndian()).toList();
+            }
+        }
+
         model.addAttribute("players",players);
         model.addAttribute("teamSelectListItem",teamSelectListItem);
         model.addAttribute("playerFilter",playerFilter);

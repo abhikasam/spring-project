@@ -1,0 +1,406 @@
+
+
+declare @jsondata nvarchar(max);
+
+set @jsondata=N'[
+  {"type":["Batter"],"team":"Chennai Super Kings","name":"Ruturaj Gaikwad","indian":true},{"type":["Batter"],"team":"Chennai Super Kings","name":"Devon Conway","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Chennai Super Kings","name":"MS Dhoni","indian":true},{"type":["Batter"],"team":"Chennai Super Kings","name":"Ajinkya Rahane","indian":true},{"type":["Batter"],"team":"Chennai Super Kings","name":"Shaik Rasheed","indian":true},{"type":["Batter"],"team":"Chennai Super Kings","name":"Sameer Rizvi","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Chennai Super Kings","name":"Avanish Rao Aravelly","indian":true},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Ravindra Jadeja","indian":true},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Mitchell Santner","indian":false},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Moeen Ali","indian":false},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Shivam Dube","indian":true},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Nishant Sindhu","indian":true},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Ajay Mandal","indian":true},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Rachin Ravindra","indian":false},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Shardul Thakur","indian":true},{"type":["AllRounder"],"team":"Chennai Super Kings","name":"Daryl Mitchell","indian":false},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Richard Gleeson","indian":false},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Rajvardhan Hangargekar","indian":true},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Deepak Chahar","indian":true},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Maheesh Theekshana","indian":false},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Mukesh Choudhary","indian":true},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Mustafizur Rahman","indian":false},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Prashant Solanki","indian":true},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Simarjeet Singh","indian":true},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Tushar Deshpande","indian":true},{"type":["Bowler"],"team":"Chennai Super Kings","name":"Matheesha Pathirana","indian":false},
+  {"type":["Wicketkeeper","Batter"],"team":"Delhi Capitals","name":"Rishabh Pant","indian":true},{"type":["Batter"],"team":"Delhi Capitals","name":"David Warner","indian":false},{"type":["Batter"],"team":"Delhi Capitals","name":"Prithvi Shaw","indian":true},{"type":["Batter"],"team":"Delhi Capitals","name":"Yash Dhull","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Jake Fraser-McGurk","indian":false},{"type":["Batter"],"team":"Delhi Capitals","name":"Shai Hope","indian":false},{"type":["Batter"],"team":"Delhi Capitals","name":"Swastik Chhikara","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Delhi Capitals","name":"Abishek Porel","indian":true},{"type":["Batter"],"team":"Delhi Capitals","name":"Harry Brook","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Delhi Capitals","name":"Ricky Bhui","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Delhi Capitals","name":"Kumar Kushagra","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Delhi Capitals","name":"Tristan Stubbs","indian":false},{"type":["AllRounder"],"team":"Delhi Capitals","name":"Axar Patel","indian":true},{"type":["","AllRounder"],"team":"Delhi Capitals","name":"Lalit Yadav","indian":true},{"type":["AllRounder"],"team":"Delhi Capitals","name":"Mitchell Marsh","indian":false},{"type":["Batting-AllRounder"],"team":"Delhi Capitals","name":"Gulbadin Naib","indian":false},{"type":["AllRounder"],"team":"Delhi Capitals","name":"Sumit Kumar","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Pravin Dubey","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Vicky Ostwal","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Anrich Nortje","indian":false},{"type":["Bowler"],"team":"Delhi Capitals","name":"Kuldeep Yadav","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Khaleel Ahmed","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Ishant Sharma","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Jhye Richardson","indian":false},{"type":["Bowler"],"team":"Delhi Capitals","name":"Lizaad Williams","indian":false},{"type":["Bowler"],"team":"Delhi Capitals","name":"Mukesh Kumar","indian":true},{"type":["Bowler"],"team":"Delhi Capitals","name":"Rasikh Dar","indian":true},
+  {"type":["Batter"],"team":"Gujarat Titans","name":"Shubman Gill","indian":true},{"type":["Batter"],"team":"Gujarat Titans","name":"David Miller","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Gujarat Titans","name":"Matthew Wade","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Gujarat Titans","name":"Wriddhiman Saha","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Gujarat Titans","name":"BR Sharath","indian":true},{"type":["Batter"],"team":"Gujarat Titans","name":"Kane Williamson","indian":false},{"type":["AllRounder"],"team":"Gujarat Titans","name":"Abhinav Manohar","indian":true},{"type":["AllRounder"],"team":"Gujarat Titans","name":"B. Sai Sudharsan","indian":true},{"type":["AllRounder"],"team":"Gujarat Titans","name":"Darshan Nalkande","indian":true},{"type":["AllRounder"],"team":"Gujarat Titans","name":"Vijay Shankar","indian":true},{"type":["AllRounder"],"team":"Gujarat Titans","name":"Azmatullah Omarzai","indian":false},{"type":["AllRounder"],"team":"Gujarat Titans","name":"Shahrukh Khan","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Sandeep Warrier","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Jayant Yadav","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Rahul Tewatia","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Mohammad Shami","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Kartik Tyagi","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Sushant Mishra","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Spencer Johnson","indian":false},{"type":["Bowler"],"team":"Gujarat Titans","name":"Noor Ahmad","indian":false},{"type":["Bowler"],"team":"Gujarat Titans","name":"Sai Kishore","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Umesh Yadav","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Rashid Khan","indian":false},{"type":["Bowler"],"team":"Gujarat Titans","name":"Joshua Little","indian":false},{"type":["Bowler"],"team":"Gujarat Titans","name":"Mohit Sharma","indian":true},{"type":["Bowler"],"team":"Gujarat Titans","name":"Manav Suthar","indian":true},
+  {"type":["Batter"],"team":"Kolkata Knight Riders","name":"Shreyas Iyer","indian":true},{"type":["Batter"],"team":"Kolkata Knight Riders","name":"Rinku Singh","indian":true},{"type":["Batter"],"team":"Kolkata Knight Riders","name":"Rahmanullah Gurbaz","indian":false},{"type":["Batter"],"team":"Kolkata Knight Riders","name":"Nitish Rana","indian":true},{"type":["Batter"],"team":"Kolkata Knight Riders","name":"Sherfane Rutherford","indian":false},{"type":["Wicketkeeper"],"team":"Kolkata Knight Riders","name":"Phil Salt","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Kolkata Knight Riders","name":"K.S Bharat","indian":true},{"type":["Batter"],"team":"Kolkata Knight Riders","name":"Manish Pandey","indian":true},{"type":["Batter"],"team":"Kolkata Knight Riders","name":"Angkrish Raghuvanshi","indian":true},{"type":["Batting-AllRounder"],"team":"Kolkata Knight Riders","name":"Anukul Roy","indian":true},{"type":["AllRounder"],"team":"Kolkata Knight Riders","name":"Ramandeep Singh","indian":true},{"type":["AllRounder"],"team":"Kolkata Knight Riders","name":"Andre Russell","indian":false},{"type":["AllRounder"],"team":"Kolkata Knight Riders","name":"Venkatesh Iyer","indian":true},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Suyash Sharma","indian":true},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Allah Ghazanfar","indian":false},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Dushmantha Chameera","indian":false},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Sakib Hussain","indian":true},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Harshit Rana","indian":true},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Sunil Narine","indian":false},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Vaibhav Arora","indian":true},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Varun Chakaravarthy","indian":true},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Mitchell Starc","indian":false},{"type":["Bowler"],"team":"Kolkata Knight Riders","name":"Chetan Sakariya","indian":true},
+  {"type":["Wicketkeeper","Batter"],"team":"Lucknow Super Giants","name":"KL Rahul","indian":true},{"type":["Batter"],"team":"Lucknow Super Giants","name":"Devdutt Padikkal","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Lucknow Super Giants","name":"Quinton de Kock","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Lucknow Super Giants","name":"Nicholas Pooran","indian":false},{"type":["Batting-AllRounder"],"team":"Lucknow Super Giants","name":"Ashton Turner","indian":false},{"type":["Bowling-AllRounder"],"team":"Lucknow Super Giants","name":"Ayush Badoni","indian":true},{"type":["Bowling-AllRounder"],"team":"Lucknow Super Giants","name":"Deepak Hooda","indian":true},{"type":["Bowling-AllRounder"],"team":"Lucknow Super Giants","name":"Krishnappa Gowtham","indian":true},{"type":["AllRounder"],"team":"Lucknow Super Giants","name":"Krunal Pandya","indian":true},{"type":["AllRounder"],"team":"Lucknow Super Giants","name":"Kyle Mayers","indian":false},{"type":["AllRounder"],"team":"Lucknow Super Giants","name":"Marcus Stoinis","indian":false},{"type":["AllRounder"],"team":"Lucknow Super Giants","name":"Mohd. Arshad Khan","indian":true},{"type":["AllRounder"],"team":"Lucknow Super Giants","name":"Prerak Mankad","indian":true},{"type":["AllRounder"],"team":"Lucknow Super Giants","name":"Yudhvir Singh","indian":true},{"type":["AllRounder"],"team":"Lucknow Super Giants","name":"Arshin Kulkarni","indian":true},{"type":["Bowling-AllRounder"],"team":"Lucknow Super Giants","name":"David Willey","indian":false},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Shivam Mavi","indian":true},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Shamar Joseph","indian":false},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Matt Henry","indian":false},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Mayank Yadav","indian":true},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Mohsin Khan","indian":true},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Ravi Bishnoi","indian":true},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Yash Thakur","indian":true},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Amit Mishra","indian":true},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"Naveen Ul Haq","indian":false},{"type":["Bowler"],"team":"Lucknow Super Giants","name":"M Siddharth","indian":true},
+  {"type":["Batter"],"team":"Mumbai Indians","name":"Rohit Sharma","indian":true},{"type":["Batter"],"team":"Mumbai Indians","name":"Dewald Brevis","indian":false},{"type":["Batter"],"team":"Mumbai Indians","name":"Suryakumar Yadav","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Mumbai Indians","name":"Ishan Kishan","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Mumbai Indians","name":"Harvik Desai","indian":true},{"type":["Batter"],"team":"Mumbai Indians","name":"N. Tilak Varma","indian":true},{"type":["Batter"],"team":"Mumbai Indians","name":"Tim David","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Mumbai Indians","name":"Vishnu Vinod","indian":true},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Hardik Pandya","indian":true},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Arjun Tendulkar","indian":true},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Mohammad Nabi","indian":false},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Romario Shepherd","indian":false},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Shams Mulani","indian":true},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Nehal Wadhera","indian":true},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Gerald Coetzee","indian":false},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Anshul Kamboj","indian":true},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Naman Dhir","indian":true},{"type":["AllRounder"],"team":"Mumbai Indians","name":"Shivalik Sharma","indian":true},{"type":["Bowler"],"team":"Mumbai Indians","name":"Kwena Maphaka","indian":false},{"type":["Bowler"],"team":"Mumbai Indians","name":"Jasprit Bumrah","indian":true},{"type":["Bowler"],"team":"Mumbai Indians","name":"Kumar Kartikeya Singh","indian":true},{"type":["Bowler"],"team":"Mumbai Indians","name":"Piyush Chawla","indian":true},{"type":["Bowler"],"team":"Mumbai Indians","name":"Akash Madhwal","indian":true},{"type":["Bowler"],"team":"Mumbai Indians","name":"Luke Wood","indian":false},{"type":["Bowler"],"team":"Mumbai Indians","name":"Dilshan Madushanka","indian":false},{"type":["Bowler"],"team":"Mumbai Indians","name":"Shreyas Gopal","indian":true},{"type":["Bowler"],"team":"Mumbai Indians","name":"Nuwan Thushara","indian":false},
+  {"type":["Batter"],"team":"Punjab Kings","name":"Shikhar Dhawan","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Punjab Kings","name":"Jitesh Sharma","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Punjab Kings","name":"Jonny Bairstow","indian":false},{"type":["Wicketkeeper","Batter"],"team":"Punjab Kings","name":"Prabhsimran Singh","indian":true},{"type":["Batter"],"team":"Punjab Kings","name":"Liam Livingstone","indian":false},{"type":["Batter"],"team":"Punjab Kings","name":"Harpreet Bhatia","indian":true},{"type":["Batter"],"team":"Punjab Kings","name":"Rilee Rossouw","indian":false},{"type":["Batter"],"team":"Punjab Kings","name":"Shashank Singh","indian":true},{"type":["AllRounder"],"team":"Punjab Kings","name":"Chris Woakes","indian":false},{"type":["AllRounder"],"team":"Punjab Kings","name":"Vishwanath Pratap Singh","indian":true},{"type":["AllRounder"],"team":"Punjab Kings","name":"Ashutosh Sharma","indian":true},{"type":["AllRounder"],"team":"Punjab Kings","name":"Tanay Thyagarajann","indian":true},{"type":["AllRounder"],"team":"Punjab Kings","name":"Atharva Taide","indian":true},{"type":["AllRounder"],"team":"Punjab Kings","name":"Rishi Dhawan","indian":true},{"type":["AllRounder"],"team":"Punjab Kings","name":"Sam Curran","indian":false},{"type":["AllRounder"],"team":"Punjab Kings","name":"Sikandar Raza","indian":false},{"type":["AllRounder"],"team":"Punjab Kings","name":"Shivam singh","indian":true},{"type":["Bowler"],"team":"Punjab Kings","name":"Prince Choudhary","indian":true},{"type":["Bowler"],"team":"Punjab Kings","name":"Harpreet Brar","indian":true},{"type":["Bowler"],"team":"Punjab Kings","name":"Arshdeep Singh","indian":true},{"type":["Bowler"],"team":"Punjab Kings","name":"Kagiso Rabada","indian":false},{"type":["Bowler"],"team":"Punjab Kings","name":"Nathan Ellis","indian":false},{"type":["Bowler"],"team":"Punjab Kings","name":"Rahul Chahar","indian":true},{"type":["Bowler"],"team":"Punjab Kings","name":"Vidwath Kaverappa","indian":true},{"type":["Bowler"],"team":"Punjab Kings","name":"Harshal Patel","indian":true},
+  {"type":["Wicketkeeper","Batter"],"team":"Rajasthan Royals","name":"Sanju Samson","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Rajasthan Royals","name":"Jos Buttler","indian":false},{"type":["Batter"],"team":"Rajasthan Royals","name":"Shimron Hetmyer","indian":false},{"type":["Batter"],"team":"Rajasthan Royals","name":"Yashasvi Jaiswal","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Rajasthan Royals","name":"Dhruv Jurel","indian":true},{"type":["Batter"],"team":"Rajasthan Royals","name":"Riyan Parag","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Rajasthan Royals","name":"Kunal Rathore","indian":true},{"type":["Wicketkeeper"],"team":"Rajasthan Royals","name":"Donovan Ferreira","indian":false},{"type":["Batter"],"team":"Rajasthan Royals","name":"Rovman Powell","indian":false},{"type":["Batter"],"team":"Rajasthan Royals","name":"Shubham Dubey","indian":true},{"type":["Batter"],"team":"Rajasthan Royals","name":"Tom Kohler-Cadmore","indian":false},{"type":["Bowling-AllRounder"],"team":"Rajasthan Royals","name":"Ravichandran Ashwin","indian":true},{"type":["AllRounder"],"team":"Rajasthan Royals","name":"Tanush Kotian","indian":true},{"type":["AllRounder"],"team":"Rajasthan Royals","name":"Abid Mushtaq","indian":true},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Avesh Khan","indian":true},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Kuldeep Sen","indian":true},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Navdeep Saini","indian":true},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Keshav Maharaj ","indian":true},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Sandeep Sharma","indian":true},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Trent Boult","indian":false},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Yuzvendra Chahal","indian":true},{"type":["Bowler"],"team":"Rajasthan Royals","name":"Nandre Burger","indian":false},
+  {"type":["Batter"],"team":"Royal Challengers Bengaluru","name":"Faf du Plessis","indian":false},{"type":["Batter"],"team":"Royal Challengers Bengaluru","name":"Rajat Patidar","indian":true},{"type":["Batter"],"team":"Royal Challengers Bengaluru","name":"Virat Kohli","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Royal Challengers Bengaluru","name":"Anuj Rawat","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Royal Challengers Bengaluru","name":"Dinesh Karthik","indian":true},{"type":["Batter"],"team":"Royal Challengers Bengaluru","name":"Suyash S Prabhudessai","indian":true},{"type":["Batter"],"team":"Royal Challengers Bengaluru","name":"Will Jacks","indian":false},{"type":["Batter"],"team":"Royal Challengers Bengaluru","name":"Saurav Chuahan","indian":true},{"type":["AllRounder"],"team":"Royal Challengers Bengaluru","name":"Glenn Maxwell","indian":false},{"type":["AllRounder"],"team":"Royal Challengers Bengaluru","name":"Mahipal Lomror","indian":true},{"type":["AllRounder"],"team":"Royal Challengers Bengaluru","name":"Karn Sharma","indian":true},{"type":["AllRounder"],"team":"Royal Challengers Bengaluru","name":"Cameron Green","indian":false},{"type":["Bowling-AllRounder"],"team":"Royal Challengers Bengaluru","name":"Swapnil Singh","indian":true},{"type":["AllRounder"],"team":"Royal Challengers Bengaluru","name":"Mayank Dagar","indian":true},{"type":["AllRounder"],"team":"Royal Challengers Bengaluru","name":"Manoj Bhandage","indian":true},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Akash Deep","indian":true},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Alzarri Joseph","indian":false},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Lockie Ferguson","indian":false},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Mohammed Siraj","indian":true},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Yash Dayal","indian":true},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Tom Curran","indian":false},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Reece Topley","indian":false},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Himanshu Sharma","indian":true},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Vyshak Vijay Kumar","indian":true},{"type":["Bowler"],"team":"Royal Challengers Bengaluru","name":"Rajan Kumar","indian":true},
+  {"type":["Batter"],"team":"Sunrisers Hyderabad","name":"Abdul Samad","indian":true},{"type":["Batter"],"team":"Sunrisers Hyderabad","name":"Aiden Markram","indian":false},{"type":["Batter"],"team":"Sunrisers Hyderabad","name":"Rahul Tripathi","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Sunrisers Hyderabad","name":"Glenn Phillips","indian":false},{"type":["Batter"],"team":"Sunrisers Hyderabad","name":"Mayank Agarwal","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Sunrisers Hyderabad","name":"Heinrich Klaasen","indian":false},{"type":["Batter"],"team":"Sunrisers Hyderabad","name":"Anmolpreet Singh","indian":true},{"type":["Wicketkeeper","Batter"],"team":"Sunrisers Hyderabad","name":"Upendra Singh Yadav","indian":true},{"type":["Batter"],"team":"Sunrisers Hyderabad","name":"Travis Head","indian":false},{"type":["AllRounder"],"team":"Sunrisers Hyderabad","name":"Abhishek Sharma","indian":true},{"type":["AllRounder"],"team":"Sunrisers Hyderabad","name":"Marco Jansen","indian":false},{"type":["AllRounder"],"team":"Sunrisers Hyderabad","name":"Washington Sundar","indian":true},{"type":["AllRounder"],"team":"Sunrisers Hyderabad","name":"Sanvir Singh","indian":true},{"type":["AllRounder"],"team":"Sunrisers Hyderabad","name":"Nitish Kumar Reddy","indian":true},{"type":["AllRounder"],"team":"Sunrisers Hyderabad","name":"Wanindu Hasaranga","indian":false},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Pat Cummins","indian":false},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Akash Singh","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Shahbaz Ahamad","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Bhuvneshwar Kumar","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Fazalhaq Farooqi","indian":false},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Jaydev Unadkat","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"T Natarajan","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Umran Malik","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Mayank Markande","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Jhathavedh Subramanyan","indian":true},{"type":["Bowler"],"team":"Sunrisers Hyderabad","name":"Vijayakanth Viyaskanth","indian":false}
+]';
+
+--with PlayerData as
+--(
+--	select team,name,indian from OpenJson(@jsondata)
+--	with (type JSON,team varchar(max),name varchar(max),indian bit)
+--)
+--insert into Player(TeamId,PlayerName,IsIndian)
+--select t.TeamId,pd.name,pd.indian from PlayerData pd
+--join team t on pd.team = t.TeamName
+
+--insert into PlayerType(PlayerId,PlayingTypeId) values(1,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(2,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(3,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(3,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(4,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(5,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(6,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(7,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(7,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(8,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(9,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(10,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(11,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(12,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(13,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(14,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(15,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(16,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(17,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(18,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(19,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(20,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(21,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(22,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(23,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(24,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(25,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(26,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(27,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(27,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(28,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(29,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(30,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(31,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(32,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(33,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(34,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(34,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(35,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(36,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(36,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(37,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(37,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(38,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(38,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(39,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(40,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(41,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(42,4)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(43,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(44,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(45,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(46,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(47,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(48,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(49,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(50,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(51,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(52,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(53,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(54,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(55,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(56,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(56,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(57,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(57,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(58,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(58,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(59,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(60,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(61,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(62,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(63,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(64,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(65,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(66,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(67,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(68,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(69,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(70,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(71,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(72,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(73,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(74,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(75,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(76,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(77,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(78,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(79,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(80,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(81,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(82,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(83,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(84,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(85,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(86,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(86,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(87,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(88,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(89,4)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(90,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(91,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(92,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(93,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(94,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(95,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(96,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(97,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(98,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(99,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(100,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(101,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(102,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(103,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(103,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(104,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(105,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(105,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(106,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(106,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(107,4)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(108,5)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(109,5)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(110,5)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(111,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(112,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(113,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(114,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(115,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(116,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(117,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(118,5)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(119,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(120,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(121,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(122,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(123,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(124,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(125,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(126,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(127,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(128,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(129,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(130,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(131,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(132,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(132,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(133,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(133,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(134,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(135,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(136,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(136,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(137,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(138,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(139,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(140,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(141,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(142,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(143,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(144,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(145,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(146,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(147,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(148,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(149,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(150,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(151,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(152,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(153,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(154,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(155,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(156,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(157,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(157,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(158,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(158,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(159,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(159,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(160,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(161,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(162,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(163,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(164,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(165,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(166,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(167,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(168,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(169,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(170,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(171,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(172,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(173,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(174,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(175,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(176,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(177,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(178,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(179,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(180,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(181,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(181,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(182,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(182,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(183,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(184,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(185,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(185,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(186,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(187,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(187,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(188,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(189,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(190,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(191,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(192,5)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(193,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(194,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(195,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(196,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(197,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(198,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(199,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(200,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(201,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(202,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(203,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(204,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(205,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(206,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(206,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(207,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(207,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(208,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(209,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(210,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(211,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(212,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(213,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(214,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(215,5)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(216,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(217,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(218,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(219,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(220,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(221,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(222,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(223,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(224,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(225,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(226,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(227,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(228,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(229,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(230,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(231,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(231,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(232,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(233,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(233,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(234,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(235,6)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(235,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(236,1)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(237,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(238,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(239,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(240,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(241,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(242,3)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(243,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(244,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(245,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(246,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(247,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(248,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(249,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(250,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(251,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(252,2)
+--insert into PlayerType(PlayerId,PlayingTypeId) values(253,2)
+
+____________________________________________________________________________________________________________
+
+Declare @jsondata nvarchar(max);
+
+set @jsondata=N'[
+  {
+    "name": "Chennai Super Kings",
+    "owner": "Chennai Super Kings Cricket Ltd.",
+    "coach": "Stephen Fleming",
+    "venue": "M. A. Chidambaram Stadium",
+    "captain": "Ruturaj Gaikwad"
+  },
+  {
+    "name": "Delhi Capitals",
+    "owner": "GMR Sports Pvt. Ltd & JSW Sports Pvt Ltd",
+    "coach": "Ricky Ponting",
+    "venue": "Arun Jaitley Stadium",
+    "captain": "Rishabh Pant"
+  },
+  {
+    "name": "Gujarat Titans",
+    "owner": "CVC Capital Partners",
+    "coach": "Ashish Nehra",
+    "venue": "Narendra Modi Stadium",
+    "captain": "Shubman Gill"
+  },
+  {
+    "name": "Kolkata Knight Riders",
+    "owner": "Knight Riders Sports Private Ltd",
+    "coach": "Chandrakant Pandit",
+    "venue": "Eden Gardens",
+    "captain": "Shreyas Iyer"
+  },
+  {
+    "name": "Lucknow Super Giants",
+    "owner": "RPSG Group",
+    "coach": "Justin Langer",
+    "venue": "BRSABV Ekana Cricket Stadium",
+    "captain": "KL Rahul"
+  },
+  {
+    "name": "Mumbai Indians",
+    "owner": "Indiawin Sports Pvt. Ltd",
+    "coach": "Mark Boucher",
+    "venue": "Wankhede Stadium",
+    "captain": "Hardik Pandya"
+  },
+  {
+    "name": "Punjab Kings",
+    "owner": "KPH Dream Cricket Private Limited",
+    "coach": "Trevor Bayliss",
+    "venue": "PCA New Stadium, Mullanpur",
+    "captain": "Shikhar Dhawan"
+  },
+  {
+    "name": "Rajasthan Royals",
+    "owner": "The Royals Sports Group",
+    "coach": "Kumar Sangakkara",
+    "venue": "Sawai Mansingh Stadium",
+    "captain": "Sanju Samson"
+  },
+  {
+    "name": "Royal Challengers Bengaluru",
+    "owner": "United Spirits Limited (USL)",
+    "coach": "Andy Flower",
+    "venue": "M. Chinnaswamy Stadium",
+    "captain": "Faf du Plessis"
+  },
+  {
+    "name": "Sunrisers Hyderabad",
+    "owner": "SUN TV Network",
+    "coach": "Daniel Vettori",
+    "venue": "Rajiv Gandhi Intl. Cricket Stadium",
+    "captain": "Pat Cummins"
+  }
+]'
+
+--insert into Team(TeamName,Owner,Coach,Venue,CaptainId)
+--select Name,Owner,Coach,Venue,null from OpenJson(@jsondata)
+--with (name nvarchar(max),owner nvarchar(max),coach nvarchar(max),venue nvarchar(max),captain nvarchar(max))
+
+
+--;
+--with teamdetails as
+--(
+--	select Name,Owner,Coach,Venue,captain from OpenJson(@jsondata)
+--	with (name nvarchar(max),owner nvarchar(max),coach nvarchar(max),venue nvarchar(max),captain nvarchar(max))
+--),
+--captainDetails as
+--(
+--	select td.Name,p.PlayerId from teamdetails td
+--	join Player p on td.captain = p.PlayerName
+--	join team t on td.Name=t.TeamName
+--)
+--update Team set CaptainId=(select PlayerId from captaindetails cd where cd.Name=TeamName)
+
+____________________________________________________________________________________________________________

@@ -22,6 +22,18 @@
                                     th:text="${selectItem.value}">
                             </option>
                         </select>
+                        <select th:field="*{type}">
+                            <option value="">-Select One-</option>
+                            <option value="Batter">Batter</option>
+                            <option value="Bowler">Bowler</option>
+                            <option value="AllRounder">All Rounder</option>
+                            <option value="Wicketkeeper">Wicket Keeper</option>
+                            <option value="Batting-AllRounder">Batting AllRounder</option>
+                            <option value="Bowling-AllRounder">Bowling AllRounder</option>
+                        </select>
+                        <label>Is Indian</label>
+                        <input type="radio" name="indian" value="1"> Yes
+                        <input type="radio" name="indian" value="2"> No
                     </form>
                 </div>
             </div>
@@ -30,15 +42,17 @@
             <table class="table table-striped table-hover">
                 <thead class="table-dark">
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Team</th>
                     <th>Type</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="player : ${players}">
+                <tr th:each="player,iter : ${players}">
+                    <td th:text="${iter.index}"></td>
                     <td th:text="${player.playerName}"></td>
-                    <td th:text="${player.playerTeam}"></td>
+                    <td th:text="${player.teamName}"></td>
                     <td th:text="${player.getPlayerTypes()}"></td>
                 </tr>
                 </tbody>

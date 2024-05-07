@@ -10,7 +10,7 @@ public class Player implements Serializable {
     @SerializedName("name")
     private String playerName;
     @SerializedName("team")
-    private String playerTeam;
+    private String teamName;
     @SerializedName("indian")
     private boolean isIndian;
     @SerializedName("type")
