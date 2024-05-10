@@ -12,28 +12,65 @@
     <div class="row">
         <div class="col-2">
             <div class="row">
-                <div class="col-2 pt-5 px-5">
+                <div class="col pt-5 px-5">
                     <form action="#" th:action="@{/player}" th:object="${playerFilter}">
-                        <input type="submit" value="Submit" />
-                        <select th:field="*{teamName}">
-                            <option value="">-Select One-</option>
-                            <option th:each="selectItem : ${teamSelectListItem}"
-                                    th:value="${selectItem.value}"
-                                    th:text="${selectItem.value}">
-                            </option>
-                        </select>
-                        <select th:field="*{type}">
-                            <option value="">-Select One-</option>
-                            <option value="Batter">Batter</option>
-                            <option value="Bowler">Bowler</option>
-                            <option value="AllRounder">All Rounder</option>
-                            <option value="Wicketkeeper">Wicket Keeper</option>
-                            <option value="Batting-AllRounder">Batting AllRounder</option>
-                            <option value="Bowling-AllRounder">Bowling AllRounder</option>
-                        </select>
-                        <label>Is Indian</label>
-                        <input type="radio" name="indian" value="1"> Yes
-                        <input type="radio" name="indian" value="2"> No
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary" >Submit</button>
+                            </div>
+                            <div class="col-6">
+                                <a class="btn btn-secondary" th:href="@{/player}">Clear</a>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label class="fw-bold">Team Name :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <select th:field="*{teamId}">
+                                    <option value="0">-Select One-</option>
+                                    <option th:each="selectItem : ${teamSelectList}"
+                                            th:value="${selectItem.value}"
+                                            th:text="${selectItem.text}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label class="fw-bold">Type :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <select th:field="*{typeId}">
+                                    <option value="0">-Select One-</option>
+                                    <option th:each="selectItem : ${playingTypeSelectList}"
+                                            th:value="${selectItem.value}"
+                                            th:text="${selectItem.text}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label class="fw-bold">Indian :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <select th:field="*{indian}">
+                                    <option value="">-Select one-</option>
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -46,14 +83,16 @@
                     <th>Name</th>
                     <th>Team</th>
                     <th>Type</th>
+                    <th>Indian</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="player,iter : ${players}">
-                    <td th:text="${iter.index}"></td>
+                <tr th:each="player : ${players}">
+                    <td th:text="${player.playerId}"></td>
                     <td th:text="${player.playerName}"></td>
-                    <td th:text="${player.teamName}"></td>
-                    <td th:text="${player.getPlayerTypes()}"></td>
+                    <td th:text="${player.team.teamName}"></td>
+                    <td th:text="${player.allPlayingTypes()}"></td>
+                    <td th:text='${player.indian?"Yes":"No"}'></td>
                 </tr>
                 </tbody>
             </table>
